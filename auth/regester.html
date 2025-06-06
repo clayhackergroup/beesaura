@@ -154,16 +154,5 @@
   // Disable right click
   document.addEventListener('contextmenu', e => e.preventDefault());
 
-  // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, etc.
-  document.onkeydown = function(e) {
-    if (
-      e.keyCode === 123 || // F12
-      (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) || // Ctrl+Shift+I/J/C
-      (e.ctrlKey && e.key.toLowerCase() === 'u') // Ctrl+U
-    ) {
-      return false;
-    }
-  };
-
 
 </script>
