@@ -1,56 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <title>BeesAura - Buy & Sell Indian Products Online | Local eCommerce</title>
-  <meta name="description" content="BeesAura is your local online store where anyone can buy or sell clothing, electronics, and more. Join India’s growing marketplace today." />
-  <meta name="keywords" content="Beesaura, Indian online store, sell products online, shop Indian clothes, online shopping India, buy online India" />
-  <meta name="robots" content="index, follow" />
-
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://beesaura.vercel.app/" />
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://beesaura.vercel.app/" />
-  <meta property="og:title" content="BeesAura - India’s Affordable Online Store" />
-  <meta property="og:description" content="Buy and sell authentic Indian products online. Start your business or shop now at BeesAura." />
-  <meta property="og:image" content="https://beesaura.vercel.app/assets/og-image.jpg" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://beesaura.vercel.app/" />
-  <meta name="twitter:title" content="BeesAura - Online Marketplace for India" />
-  <meta name="twitter:description" content="Buy or sell easily with BeesAura. India's trusted local eCommerce site." />
-  <meta name="twitter:image" content="https://beesaura.vercel.app/assets/og-image.jpg" />
-
-  <!-- Favicon -->
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-
-  <!-- JSON-LD Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "BeesAura",
-    "url": "https://beesaura.vercel.app",
-    "logo": "https://beesaura.vercel.app/assets/logo.png",
-    "sameAs": [
-      "https://instagram.com/yourbrand",
-      "https://facebook.com/yourbrand"
-    ],
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+91-7677764646",
-      "contactType": "Customer Service"
-    }
-  }
-  </script>
-</head>
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Beesaura Dashboard</title>
@@ -97,6 +47,8 @@
       animation: slideUp 0.8s ease forwards;
       transform: translateY(50px);
       opacity: 0;
+      gap: 10px;
+      flex-wrap: nowrap; /* default, no wrap */
     }
 
     @keyframes slideUp {
@@ -112,6 +64,7 @@
       border-radius: 5px;
       border: 1px solid #ccc;
       transition: box-shadow 0.3s ease;
+      box-sizing: border-box;
     }
 
     .search-bar input:focus {
@@ -145,6 +98,7 @@
       transition: background-color 0.3s ease, transform 0.3s ease;
       margin-left: 15px;
       box-shadow: 0 3px 6px rgba(76,175,80,0.4);
+      white-space: nowrap;
     }
 
     .seller-btn:hover {
@@ -206,11 +160,35 @@
         opacity: 1;
       }
     }
+
+    /* Responsive fixes for mobile screens */
+    @media (max-width: 600px) {
+      .top-bar {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .seller-btn {
+        flex: 1 1 100%;
+        margin-left: 0;
+        font-size: 1.1rem;
+        padding: 12px 0;
+        white-space: normal;
+        text-align: center;
+      }
+      .search-bar input {
+        flex: 1 1 100%;
+        width: 100%;
+      }
+      .language-select select {
+        flex: 1 1 100%;
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
-    Beesaura shop online
+    Beesaura Dashboard
   </header>
 
   <div class="top-bar">
@@ -249,8 +227,8 @@
       <p><strong>Price:</strong> ₹499</p>
       <p><strong>Seller:</strong> BeesAura India</p>
       <p><strong>Quantity:</strong> In Stock</p>
-      <button >Buy Now</button>
-      <button >WhatsApp</button>
+      <button>Buy Now</button>
+      <button>WhatsApp</button>
     </div>
   </main>
 
@@ -259,9 +237,7 @@
     <p>Contact: info.beesaura@gmail.com | Call: +919699957917</p>
     <p>
       Follow us:
-      <a href="#" style="color: yellow">Instagram</a> |
-      <a href="#" style="color: yellow">Facebook</a> |
-      <a href="#" style="color: yellow">Twitter</a>
+      <a href="https://instagram.com/bees.aura" style="color: yellow">Instagram</a> |
     </p>
   </footer>
 
@@ -297,3 +273,4 @@
   </script>
 </body>
 </html>
+
