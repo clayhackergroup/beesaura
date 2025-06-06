@@ -145,11 +145,7 @@
     const gender = localStorage.getItem("gender");
 
     if (!name || !number || !email || !gender || isNaN(age) || age < 18) {
-      // Redirect to registration if any field is missing or age < 18
-      window.location.href = "regester.html";
-    }
-  })();
-
+    
   
   // Disable right click
   document.addEventListener('contextmenu', e => e.preventDefault());
