@@ -1,0 +1,6 @@
+ {
+        username: "",
+        profilePic: "",
+        location: "",
+        profileLink: ""
+      },

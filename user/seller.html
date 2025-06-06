@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BeesAura Sellers</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fafafa;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .seller-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 25px;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .seller-card {
+      text-decoration: none;
+      background: white;
+      border-radius: 20px;
+      padding: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .seller-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .profile-pic {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #e91e63;
+      margin-bottom: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .seller-card:hover .profile-pic {
+      transform: scale(1.05);
+    }
+
+    .username {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #222;
+      margin-bottom: 5px;
+    }
+
+    .location {
+      font-size: 0.85rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>BeesAura Sellers</h1>
+
+  <div class="seller-grid" id="sellerGrid">
+    <!-- Cards inserted by JS -->
+  </div>
+
+  <script>
+    const sellers = [
+      {
+        username: "ClayHacker",
+        profilePic: "https://i.imgur.com/Vz81GEl.jpg",
+        location: "New Delhi, India",
+        profileLink: "profile.html"
+      },
+
+      
+      // Add more sellers here
+    ];
+
+    const grid = document.getElementById("sellerGrid");
+
+    sellers.forEach(seller => {
+      const card = document.createElement("a");
+      card.href = seller.profileLink;
+      card.className = "seller-card";
+      card.innerHTML = `
+        <img src="${seller.profilePic}" class="profile-pic" alt="${seller.username}" />
+        <div class="username">@${seller.username}</div>
+        <div class="location">${seller.location}</div>
+      `;
+      grid.appendChild(card);
+    });
+  </script>
+
+</body>
+</html>
