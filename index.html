@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beesaura Online Store</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f7b731, #f3a683);
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: backgroundSlide 10s infinite alternate;
+        }
+
+        @keyframes backgroundSlide {
+            from {
+                background-position: 0% 50%;
+            }
+            to {
+                background-position: 100% 50%;
+            }
+        }
+
+        h1 {
+            font-size: 3rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .get-start-btn {
+            background: #f7c800;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            margin-top: 30px;
+            transition: transform 0.3s, background 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .get-start-btn:hover {
+            transform: scale(1.1);
+            background: #f39c12;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Beesaura</h1>
+    <p>Your one-stop shop for everything amazing.</p>
+    <button class="get-start-btn" onclick="redirectToRegister()">Get Started</button>
+
+    <script>
+        // Auto-redirect if user is valid
+        (function autoRedirectIfLoggedIn() {
+            const name = localStorage.getItem('name');
+            const number = localStorage.getItem('number');
+            const email = localStorage.getItem('email');
+            const age = parseInt(localStorage.getItem('age'));
+            const gender = localStorage.getItem('gender');
+
+            if (name && number && email && gender && !isNaN(age) && age >= 18) {
+                window.location.href = 'dashboard.html';
+            }
+        })();
+
+        // Redirect to registration on button click
+        function redirectToRegister() {
+            window.location.href = 'auth/regester.html';
+        }
+    </script>
+</body>
+</html>

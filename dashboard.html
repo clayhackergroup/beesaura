@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beesaura Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f0f0;
+      animation: fadeInBody 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInBody {
+      to {
+        opacity: 1;
+      }
+    }
+
+    header {
+      background-color: #f7b731;
+      padding: 15px;
+      text-align: center;
+      color: white;
+      font-size: 1.5rem;
+      animation: slideDown 0.8s ease forwards;
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+
+    @keyframes slideDown {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      animation: slideUp 0.8s ease forwards;
+      transform: translateY(50px);
+      opacity: 0;
+    }
+
+    @keyframes slideUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .search-bar input {
+      width: 250px;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .search-bar input:focus {
+      outline: none;
+      box-shadow: 0 0 8px #f7b731;
+      border-color: #f7b731;
+    }
+
+    .language-select select {
+      padding: 6px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .language-select select:hover, .language-select select:focus {
+      outline: none;
+      box-shadow: 0 0 8px #f7b731;
+      border-color: #f7b731;
+    }
+
+    .seller-btn {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 16px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin-left: 15px;
+      box-shadow: 0 3px 6px rgba(76,175,80,0.4);
+    }
+
+    .seller-btn:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+      box-shadow: 0 5px 10px rgba(69,160,73,0.6);
+    }
+
+    .product-card {
+      margin: 20px auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      max-width: 400px;
+      animation: fadeInProduct 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInProduct {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .product-card h3 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    .product-card button {
+      padding: 10px;
+      background-color: #f7b731;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .product-card button:hover {
+      background-color: #e0a80f;
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 20px;
+      background: #222;
+      color: white;
+      text-align: center;
+      animation: fadeInFooter 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInFooter {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Beesaura Dashboard
+  </header>
+
+  <div class="top-bar">
+    <div class="search-bar">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search products..."
+        oninput="searchProducts()"
+      />
+    </div>
+    <div class="language-select">
+      <select onchange="changeLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+        <option value="mr">Marathi</option>
+        <option value="bn">Bengali</option>
+        <option value="pa">Punjabi</option>
+        <option value="ur">Urdu</option>
+        <option value="ta">Tamil</option>
+        <option value="ml">Malayalam</option>
+        <option value="kn">Kannada</option>
+        <option value="te">Telugu</option>
+        <option value="gu">Gujarati</option>
+        <option value="or">Odia</option>
+        <option value="as">Assamese</option>
+      </select>
+    </div>
+    <button class="seller-btn" onclick="goToSeller()">Become a Seller</button>
+  </div>
+
+  <main id="productContainer">
+    <div class="product-card" id="product1">
+      <h3>Demo T-Shirt</h3>
+      <p><strong>Description:</strong> Stylish cotton t-shirt for everyday use.</p>
+      <p><strong>Price:</strong> ₹499</p>
+      <p><strong>Seller:</strong> BeesAura India</p>
+      <p><strong>Quantity:</strong> In Stock</p>
+      <button >Buy Now</button>
+      <button >WhatsApp</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 BeesAura. All rights reserved.</p>
+    <p>Contact: support.beesaura@gmail.com | Call: 9699957917</p>
+    <p>
+      Follow us:
+      <a href="#" style="color: yellow">Instagram</a> |
+      <a href="#" style="color: yellow">Facebook</a> |
+      <a href="#" style="color: yellow">Twitter</a>
+    </p>
+  </footer>
+
+  <script>
+    function buyNow() {
+      window.location.href = 'tel:7677764646';
+    }
+
+    function contactWhatsapp() {
+      const message = encodeURIComponent(
+        "Hello, I'm interested in the Demo T-Shirt from Beesaura."
+      );
+      window.open(`https://wa.me/917677764646?text=${message}`, '_blank');
+    }
+
+    function searchProducts() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const products = document.querySelectorAll('.product-card');
+
+      products.forEach(product => {
+        const name = product.querySelector('h3').textContent.toLowerCase();
+        product.style.display = name.includes(query) ? 'block' : 'none';
+      });
+    }
+
+    function changeLanguage(lang) {
+      alert('Language switch to ' + lang + ' (demo only)');
+    }
+
+    function goToSeller() {
+      window.location.href = 'hysdr6r6r6-bgg6728uysg/seller.html';
+    }
+  </script>
+</body>
+</html>
