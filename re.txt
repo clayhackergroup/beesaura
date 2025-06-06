@@ -9,28 +9,55 @@
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background: #f0f0f0;
-      animation: bodyFade 1s ease-in;
+      animation: fadeInBody 1s ease forwards;
+      opacity: 0;
     }
-
-    @keyframes bodyFade {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
+    @keyframes fadeInBody { to { opacity: 1; } }
     header {
       background-color: #f7b731;
       padding: 15px;
       text-align: center;
       color: white;
       font-size: 1.5rem;
-      animation: slideDown 1s ease-in-out;
+      animation: slideDown 0.8s ease forwards;
+      transform: translateY(-50px);
+      opacity: 0;
     }
-
-    @keyframes slideDown {
-      from { transform: translateY(-100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    @keyframes slideDown { to { transform: translateY(0); opacity: 1; } }
+    nav.menu-bar {
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 12px 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      animation: fadeInMenu 1s ease forwards;
+      opacity: 0;
     }
-
+    nav.menu-bar a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      position: relative;
+      padding: 5px 0;
+      transition: color 0.3s ease;
+    }
+    nav.menu-bar a::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: #f7b731;
+      transition: width 0.3s ease;
+    }
+    nav.menu-bar a:hover { color: #f7b731; }
+    nav.menu-bar a:hover::after { width: 100%; }
+    @keyframes fadeInMenu { to { opacity: 1; } }
     .top-bar {
       display: flex;
       justify-content: space-between;
@@ -38,34 +65,70 @@
       padding: 10px;
       background-color: white;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      animation: fadeIn 1s ease-in;
+      animation: slideUp 0.8s ease forwards;
+      transform: translateY(50px);
+      opacity: 0;
     }
-
+    @keyframes slideUp { to { transform: translateY(0); opacity: 1; } }
     .search-bar input {
       width: 250px;
       padding: 8px;
       border-radius: 5px;
       border: 1px solid #ccc;
-      transition: 0.3s ease;
+      transition: box-shadow 0.3s ease;
     }
-
     .search-bar input:focus {
       outline: none;
+      box-shadow: 0 0 8px #f7b731;
       border-color: #f7b731;
-      box-shadow: 0 0 5px rgba(247, 183, 49, 0.5);
     }
-
     .language-select select {
       padding: 6px;
       border-radius: 5px;
       border: 1px solid #ccc;
-      transition: 0.3s ease;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
     }
-
-    .language-select select:hover {
+    .language-select select:hover,
+    .language-select select:focus {
+      outline: none;
+      box-shadow: 0 0 8px #f7b731;
       border-color: #f7b731;
     }
-
+    .seller-btn {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 16px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin-left: 15px;
+      box-shadow: 0 3px 6px rgba(76,175,80,0.4);
+    }
+    .seller-btn:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+      box-shadow: 0 5px 10px rgba(69,160,73,0.6);
+    }
+    .cart-btn {
+      background-color: #f7b731;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 16px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-left: 15px;
+      box-shadow: 0 3px 6px rgba(247,183,49,0.4);
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .cart-btn:hover {
+      background-color: #e0a80f;
+      transform: scale(1.05);
+      box-shadow: 0 5px 10px rgba(224,168,15,0.6);
+    }
     .product-card {
       margin: 20px auto;
       background-color: white;
@@ -73,19 +136,12 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       padding: 20px;
       max-width: 400px;
-      animation: fadeIn 1s ease-in;
-      transition: transform 0.3s ease;
+      animation: fadeInProduct 1s ease forwards;
+      opacity: 0;
+      position: relative;
     }
-
-    .product-card:hover {
-      transform: scale(1.02);
-    }
-
-    .product-card h3 {
-      margin: 0;
-      font-size: 1.4rem;
-    }
-
+    @keyframes fadeInProduct { to { opacity: 1; } }
+    .product-card h3 { margin: 0; font-size: 1.4rem; }
     .product-card button {
       padding: 10px;
       background-color: #f7b731;
@@ -94,42 +150,78 @@
       border-radius: 5px;
       margin-top: 10px;
       cursor: pointer;
-      transition: 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
-
     .product-card button:hover {
-      background-color: #e0a800;
+      background-color: #e0a80f;
       transform: scale(1.05);
     }
-
+    /* Cart panel styles */
+    #cartPanel {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      width: 340px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      padding: 16px;
+      max-height: 420px;
+      overflow-y: auto;
+      display: none;
+      z-index: 1000;
+      animation: fadeInCart 0.5s;
+    }
+    @keyframes fadeInCart { from { opacity: 0; right: 0; } to { opacity: 1; right: 20px; } }
+    .cart-item {
+      border-bottom: 1px solid #eee;
+      padding: 8px 0;
+    }
+    .cart-item:last-child { border-bottom: none; }
+    .cart-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .cart-total {
+      font-weight: bold;
+      margin: 12px 0;
+      text-align: right;
+    }
+    .remove-btn {
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .remove-btn:hover { background: #c0392b; }
     footer {
       margin-top: 40px;
       padding: 20px;
       background: #222;
       color: white;
       text-align: center;
-      animation: fadeIn 1s ease-in;
+      animation: fadeInFooter 1s ease forwards;
+      opacity: 0;
     }
-
-    footer a {
-      color: yellow;
-      transition: 0.3s ease;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+    @keyframes fadeInFooter { to { opacity: 1; } }
   </style>
 </head>
 <body>
-  <header>Beesaura Dashboard</header>
-
+  <header>
+    Beesaura Dashboard
+  </header>
+  <!-- Menu Bar -->
+  <nav class="menu-bar">
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+    <a href="user/sellers.html">See All Sellers</a>
+    <a href="help.html">Help</a>
+  </nav>
   <div class="top-bar">
     <div class="search-bar">
       <input type="text" id="searchInput" placeholder="Search products..." oninput="searchProducts()" />
@@ -151,39 +243,139 @@
         <option value="as">Assamese</option>
       </select>
     </div>
+    <button class="seller-btn" onclick="goToSeller()">Become a Seller</button>
+    <button class="cart-btn" onclick="showCart()">Cart (<span id="cartCount">0</span>)</button>
   </div>
-
   <main id="productContainer">
-    <div class="product-card">
+    <!-- Example products with unique phone/whatsapp numbers -->
+    <div class="product-card" id="product1" data-phone="7677764646" data-whatsapp="7677764646">
       <h3>Demo T-Shirt</h3>
       <p><strong>Description:</strong> Stylish cotton t-shirt for everyday use.</p>
       <p><strong>Price:</strong> ₹499</p>
       <p><strong>Seller:</strong> BeesAura India</p>
       <p><strong>Quantity:</strong> In Stock</p>
-      <button >Buy Now</button>
-      <button onclick="contactWhatsapp()">WhatsApp</button>
+      <button onclick="buyNow('7677764646')">Buy Now</button>
+      <button onclick="contactWhatsapp('7677764646', 'Demo T-Shirt')">WhatsApp</button>
+      <button onclick="addToCart('product1')" style="background:#007bff;">Add to Cart</button>
     </div>
+    <div class="product-card" id="product2" data-phone="9123456789" data-whatsapp="9123456789">
+      <h3>Eco-Friendly Water Bottle</h3>
+      <p><strong>Description:</strong> Reusable bottle made from sustainable materials.</p>
+      <p><strong>Price:</strong> ₹299</p>
+      <p><strong>Seller:</strong> GreenGoods</p>
+      <p><strong>Quantity:</strong> In Stock</p>
+      <button onclick="buyNow('9123456789')">Buy Now</button>
+      <button onclick="contactWhatsapp('9123456789', 'Eco-Friendly Water Bottle')">WhatsApp</button>
+      <button onclick="addToCart('product2')" style="background:#007bff;">Add to Cart</button>
+    </div>
+    <!-- Add more product-card divs as needed, with unique data-phone and data-whatsapp -->
   </main>
-
+  <!-- Cart Panel -->
+  <div id="cartPanel">
+    <h3>Shopping Cart</h3>
+    <div id="cartItems"></div>
+    <div class="cart-total" id="cartTotal"></div>
+    <button onclick="checkout()" style="background:#f7b731;color:#fff;padding:10px;border:none;border-radius:5px;width:100%;cursor:pointer;">Checkout</button>
+    <button onclick="closeCart()" style="margin-top:10px;background:#ccc;color:#333;padding:5px;border:none;border-radius:5px;width:100%;cursor:pointer;">Close</button>
+  </div>
   <footer>
     <p>© 2025 BeesAura. All rights reserved.</p>
-    <p>Contact: suppport.beesaura@gmail.com | Call: 9699957917</p>
+    <p>Contact: info.beesaura@gmail.com | Call: +91 9699957917</p>
     <p>
       Follow us:
-      <a href="https://instagram.com/beesaura">Instagram</a> |
-      <a href="#">Facebook</a> |
-      <a href="#">Twitter</a>
+      <a href="https://instagram.com/bees.aura" style="color: yellow">Instagram</a>
     </p>
   </footer>
-
   <script>
-    function buyNow() {
-      window.location.href = 'tel:7677764646';
+    // Cart logic
+    let cart = [];
+
+    function addToCart(productId) {
+      const product = document.getElementById(productId);
+      const name = product.querySelector('h3').textContent;
+      const description = product.querySelectorAll('p')[0].textContent.replace('Description:', '').trim();
+      const priceText = product.querySelectorAll('p')[1].textContent.replace('Price:', '').trim();
+      const price = parseInt(priceText.replace(/[^\d]/g, ''));
+      const seller = product.querySelectorAll('p')[2].textContent.replace('Seller:', '').trim();
+      const quantity = product.querySelectorAll('p')[3].textContent.replace('Quantity:', '').trim();
+      const phone = product.getAttribute('data-phone');
+      const whatsapp = product.getAttribute('data-whatsapp');
+
+      // Check if already in cart
+      const existing = cart.find(item => item.id === productId);
+      if (existing) {
+        alert('Product already in cart');
+        return;
+      }
+      cart.push({ id: productId, name, description, price, seller, quantity, phone, whatsapp });
+      updateCartCount();
+      alert(name + ' added to cart');
     }
 
-    function contactWhatsapp() {
-      const message = encodeURIComponent("Hello, I'm interested in the Demo T-Shirt from Beesaura.");
-      window.open(`https://wa.me/917677764646?text=${message}`, '_blank');
+    function showCart() {
+      const cartPanel = document.getElementById('cartPanel');
+      const cartItems = document.getElementById('cartItems');
+      const cartTotal = document.getElementById('cartTotal');
+      cartItems.innerHTML = '';
+      let total = 0;
+      if (cart.length === 0) {
+        cartItems.innerHTML = '<p>Your cart is empty.</p>';
+        cartTotal.textContent = '';
+      } else {
+        cart.forEach((item, idx) => {
+          total += item.price;
+          cartItems.innerHTML += `
+            <div class="cart-item">
+              <strong>${item.name}</strong><br>
+              <small>${item.description}</small><br>
+              <small>Price: ₹${item.price}</small><br>
+              <small>Seller: ${item.seller}</small><br>
+              <small>Quantity: ${item.quantity}</small>
+              <div class="cart-actions">
+                <button class="remove-btn" onclick="removeFromCart('${item.id}')">Remove</button>
+                <button onclick="buyNow('${item.phone}')">Buy</button>
+                <button onclick="contactWhatsapp('${item.whatsapp}', '${item.name}')">WhatsApp</button>
+              </div>
+            </div>
+          `;
+        });
+        cartTotal.textContent = 'Total: ₹' + total;
+      }
+      cartPanel.style.display = 'block';
+    }
+
+    function closeCart() {
+      document.getElementById('cartPanel').style.display = 'none';
+    }
+
+    function removeFromCart(productId) {
+      cart = cart.filter(item => item.id !== productId);
+      updateCartCount();
+      showCart();
+    }
+
+    function updateCartCount() {
+      document.getElementById('cartCount').textContent = cart.length;
+    }
+
+    function checkout() {
+      if (cart.length === 0) {
+        alert('Cart is empty');
+        return;
+      }
+      alert('Proceeding to checkout with ' + cart.length + ' item(s).');
+      // Add your checkout logic here
+    }
+
+    // Updated to accept phone per product
+    function buyNow(phone) {
+      window.location.href = 'tel:' + phone;
+    }
+
+    // Updated to accept WhatsApp number and product name per product
+    function contactWhatsapp(whatsapp, productName) {
+      const message = encodeURIComponent(`Hello, I'm interested in ${productName} from Beesaura.`);
+      window.open(`https://wa.me/91${whatsapp}?text=${message}`, '_blank');
     }
 
     function searchProducts() {
@@ -196,7 +388,11 @@
     }
 
     function changeLanguage(lang) {
-      alert('Language switch to ' + lang + ' (demo only)');
+      alert('Language switched to ' + lang + ' (demo only)');
+    }
+
+    function goToSeller() {
+      window.location.href = 'sellers/seller.html';
     }
   </script>
 </body>

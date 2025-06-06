@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact BeesAura</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fdfdfd;
+      color: #333;
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    header {
+      background-color: #f7b731;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      animation: slideDown 0.6s ease forwards;
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+
+    @keyframes slideDown {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      animation: fadeUp 1s ease forwards;
+      transform: translateY(40px);
+      opacity: 0;
+    }
+
+    @keyframes fadeUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #f7b731;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #f7b731;
+      box-shadow: 0 0 6px #f7b731aa;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #f7b731;
+      color: white;
+      border: none;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #e5a610;
+      transform: scale(1.03);
+    }
+
+    footer {
+      margin-top: 50px;
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    footer a {
+      color: #f7b731;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>Contact Us</header>
+
+  <div class="form-container">
+    <h2>We'd Love to Hear From You</h2>
+    <form id="contactForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <input type="text" id="subject" placeholder="Subject" required />
+      <textarea id="message" rows="5" placeholder="Your Message..." required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>© 2025 BeesAura. All rights reserved.</p>
+    <p>Contact: info.beesaura@gmail.com | +91 9699957917</p>
+    <p>
+      Follow us on:
+      <a href="https://instagram.com/bees.aura" target="_blank">Instagram</a>
+    </p>
+  </footer>
+
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const subject = document.getElementById("subject").value;
+      const message = document.getElementById("message").value;
+
+      const botToken = "7091061445:AAGQfRijga7CV8O8LKZnHZjPrOPXYMR1yus"; // 🔁 Replace with your Bot Token
+      const chatId = "8043446963";     // 🔁 Replace with your Telegram User ID
+      const msg = `📝 *New Contact Form Submission*\n\n👤 *Name:* ${name}\n📧 *Email:* ${email}\n📝 *Subject:* ${subject}\n💬 *Message:* ${message}`;
+
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: msg,
+          parse_mode: "Markdown"
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert("✅ Thanks for contacting us!");
+        window.location.href = "dashboard.html";
+      })
+      .catch(error => {
+        alert("❌ Something went wrong. Please try again later.");
+        console.error("Telegram error:", error);
+      });
+    });
+
+    // Disable right click
+  document.addEventListener('contextmenu', e => e.preventDefault());
+
+  // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, etc.
+  document.onkeydown = function(e) {
+    if (
+      e.keyCode === 123 || // F12
+      (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) || // Ctrl+Shift+I/J/C
+      (e.ctrlKey && e.key.toLowerCase() === 'u') // Ctrl+U
+    ) {
+      return false;
+    }
+  };
+
+  </script>
+</body>
+</html>

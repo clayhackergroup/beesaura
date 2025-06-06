@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About - BeesAura</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fdfdfd;
+      color: #333;
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    header {
+      background-color: #f7b731;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      animation: slideDown 0.7s ease forwards;
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+
+    @keyframes slideDown {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .about-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      animation: fadeUp 1s ease forwards;
+      transform: translateY(40px);
+      opacity: 0;
+    }
+
+    @keyframes fadeUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .about-container h2 {
+      color: #f7b731;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .about-container p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .about-container ul {
+      margin-top: 15px;
+      padding-left: 20px;
+    }
+
+    .about-container ul li {
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    footer {
+      margin-top: 50px;
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      animation: fadeInFooter 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInFooter {
+      to { opacity: 1; }
+    }
+
+    footer a {
+      color: #f7b731;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>About BeesAura</header>
+
+  <div class="about-container">
+    <h2>Welcome to BeesAura Online Store</h2>
+    <p>
+      BeesAura is a next-generation online marketplace that connects buyers with passionate sellers from across India.
+      Whether you're shopping for fashion, electronics, home goods, or handmade items — BeesAura is your go-to destination
+      for quality, trust, and affordability.
+    </p>
+
+    <p>
+      Built by a community, for the community — our mission is to empower small sellers, promote local products,
+      and offer customers a delightful online shopping experience.
+    </p>
+
+    <h3>Why Shop With BeesAura?</h3>
+    <ul>
+      <li>✨ Curated products from trusted sellers</li>
+      <li>🚚 Fast & Reliable Delivery</li>
+      <li>🔐 Secure Payments & Buyer Protection</li>
+      <li>📱 Easy-to-use interface for mobile and desktop</li>
+      <li>💬 Dedicated support team always available</li>
+    </ul>
+  </div>
+
+  <footer>
+    <p>© 2025 BeesAura. All rights reserved.</p>
+    <p>Contact: info.beesaura@gmail.com | Phone: +91 9699957917</p>
+    <p>
+      Follow us on:
+      <a href="https://instagram.com/bees.aura" target="_blank">Instagram</a> |
+      <a href="#">Facebook</a> |
+      <a href="#">Twitter</a>
+    </p>
+  </footer>
+
+</body>
+</html>
