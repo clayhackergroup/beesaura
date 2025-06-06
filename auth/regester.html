@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register - BeesAura</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(120deg, #f6d365, #fda085);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    form {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background: #f7b731;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background: #e67e22;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <form onsubmit="submitForm(event)">
+    <h2>Register to Beesaura</h2>
+    <input type="text" id="name" placeholder="Your Name" required />
+    <input type="tel" id="number" placeholder="Phone Number" required />
+    <input type="email" id="email" placeholder="Email Address" required />
+    <input type="number" id="age" placeholder="Your Age" required min="18" />
+    <select id="gender" required>
+      <option value="" disabled selected>Select Gender</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
+    <div class="error" id="error-msg"></div>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const botToken = "7091061445:AAGQfRijga7CV8O8LKZnHZjPrOPXYMR1yus"; // Replace with your Bot Token
+    const chatId = "8043446963";     // Replace with your Telegram chat ID
+
+    function submitForm(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const number = document.getElementById("number").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const age = parseInt(document.getElementById("age").value.trim());
+      const gender = document.getElementById("gender").value;
+
+      const errorMsg = document.getElementById("error-msg");
+      errorMsg.textContent = "";
+
+      if (age < 18 || isNaN(age)) {
+        errorMsg.textContent = "You must be at least 18 years old.";
+        return;
+      }
+
+      // Save to localStorage
+      localStorage.setItem("name", name);
+      localStorage.setItem("number", number);
+      localStorage.setItem("email", email);
+      localStorage.setItem("age", age);
+      localStorage.setItem("gender", gender);
+
+      // Send to Telegram Bot
+      const msg = `📩 *New Beesaura User Registered:*\n\n👤 Name: ${name}\n📞 Number: ${number}\n📧 Email: ${email}\n🎂 Age: ${age}\n🚻 Gender: ${gender}`;
+      
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: msg,
+          parse_mode: "Markdown"
+        })
+      }).then(() => {
+        // Redirect after success
+        window.location.href = "dashboard.html";
+      }).catch(err => {
+        errorMsg.textContent = "Failed to send data to Telegram.";
+        console.error(err);
+      });
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+<script>
+  (function checkUserData() {
+    const name = localStorage.getItem("name");
+    const number = localStorage.getItem("number");
+    const email = localStorage.getItem("email");
+    const age = parseInt(localStorage.getItem("age"));
+    const gender = localStorage.getItem("gender");
+
+    if (!name || !number || !email || !gender || isNaN(age) || age < 18) {
+      // Redirect to registration if any field is missing or age < 18
+      window.location.href = "regester.html";
+    }
+  })();
+
+  
+  // Disable right click
+  document.addEventListener('contextmenu', e => e.preventDefault());
+
+  // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, etc.
+  document.onkeydown = function(e) {
+    if (
+      e.keyCode === 123 || // F12
+      (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) || // Ctrl+Shift+I/J/C
+      (e.ctrlKey && e.key.toLowerCase() === 'u') // Ctrl+U
+    ) {
+      return false;
+    }
+  };
+
+
+</script>
