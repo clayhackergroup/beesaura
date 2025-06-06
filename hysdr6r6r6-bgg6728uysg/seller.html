@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Become a Seller - BeesAura</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #f7b731;
+      margin-top: 40px;
+    }
+
+    form {
+      max-width: 500px;
+      background: white;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px 0;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    select:focus {
+      outline: none;
+      border-color: #f7b731;
+      box-shadow: 0 0 8px #f7b731;
+    }
+
+    button {
+      margin-top: 25px;
+      background-color: #f7b731;
+      border: none;
+      padding: 12px;
+      color: white;
+      font-size: 1.2rem;
+      border-radius: 6px;
+      width: 100%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e0a80f;
+    }
+
+    .optional {
+      font-weight: normal;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .status-msg {
+      text-align: center;
+      margin-top: 20px;
+      font-weight: 600;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <h1>Become a Seller on BeesAura</h1>
+  <form id="sellerForm">
+    <label for="name">Name *</label>
+    <input type="text" id="name" name="name" required />
+
+    <label for="number">Phone Number *</label>
+    <input type="tel" id="number" name="number" pattern="[0-9]{10,15}" placeholder="Digits only" required />
+
+    <label for="email">Email *</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="haveStore">Do you have a store? <span class="optional">(optional)</span></label>
+    <input type="text" id="haveStore" name="haveStore" placeholder="Store name or details" />
+
+    <label for="ownProduct">Is it your own product? <span class="optional">(optional)</span></label>
+    <input type="text" id="ownProduct" name="ownProduct" placeholder="Yes / No / Details" />
+
+    <label for="state">State *</label>
+    <input type="text" id="state" name="state" required />
+
+    <label for="city">City *</label>
+    <input type="text" id="city" name="city" required />
+
+    <label for="town">Town *</label>
+    <input type="text" id="town" name="town" required />
+
+    <label for="landmark">Landmark *</label>
+    <input type="text" id="landmark" name="landmark" required />
+
+    <button type="submit">Submit</button>
+
+    <p class="status-msg" id="statusMsg"></p>
+  </form>
+
+  <script>
+    const form = document.getElementById('sellerForm');
+    const statusMsg = document.getElementById('statusMsg');
+
+    const COOLDOWN_HOURS = 24;
+    const LAST_SUBMIT_KEY = 'beesaura_last_seller_submit';
+
+    function canSubmitForm() {
+      const lastSubmit = localStorage.getItem(LAST_SUBMIT_KEY);
+      if (!lastSubmit) return true;
+      
+      const lastSubmitTime = new Date(parseInt(lastSubmit, 10));
+      const now = new Date();
+      const diffMs = now - lastSubmitTime;
+      const diffHours = diffMs / (1000 * 60 * 60);
+      return diffHours >= COOLDOWN_HOURS;
+    }
+
+    function saveSubmitTime() {
+      localStorage.setItem(LAST_SUBMIT_KEY, Date.now().toString());
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!canSubmitForm()) {
+        statusMsg.style.color = 'red';
+        statusMsg.textContent = `You can only submit this form once every ${COOLDOWN_HOURS} hours. Please try again later.`;
+        return;
+      }
+
+      // Collect form data
+      const data = {
+        name: form.name.value.trim(),
+        number: form.number.value.trim(),
+        email: form.email.value.trim(),
+        haveStore: form.haveStore.value.trim() || 'N/A',
+        ownProduct: form.ownProduct.value.trim() || 'N/A',
+        state: form.state.value.trim(),
+        city: form.city.value.trim(),
+        town: form.town.value.trim(),
+        landmark: form.landmark.value.trim()
+      };
+
+      // Format message for Telegram
+      const message = `
+New Seller Application:
+Name: ${data.name}
+Phone: ${data.number}
+Email: ${data.email}
+Have Store: ${data.haveStore}
+Own Product: ${data.ownProduct}
+State: ${data.state}
+City: ${data.city}
+Town: ${data.town}
+Landmark: ${data.landmark}
+      `;
+
+      // Telegram Bot info — REPLACE with your actual token and chat ID
+      const BOT_TOKEN = '7091061445:AAGQfRijga7CV8O8LKZnHZjPrOPXYMR1yus';
+      const CHAT_ID = '8043446963';
+
+      // Telegram API URL
+      const telegramUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+      try {
+        // Send message to Telegram bot via fetch POST
+        const res = await fetch(telegramUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text: message,
+            parse_mode: 'HTML'
+          })
+        });
+
+        const json = await res.json();
+
+        if (json.ok) {
+          saveSubmitTime();  // Save timestamp on successful submit
+          statusMsg.style.color = 'green';
+          statusMsg.textContent = 'Application submitted successfully! Redirecting...';
+          setTimeout(() => {
+            window.location.href = 'pending.html';
+          }, 2000);
+        } else {
+          statusMsg.style.color = 'red';
+          statusMsg.textContent = 'Failed to send application. Please try again later.';
+          console.error('Telegram error:', json);
+        }
+      } catch (error) {
+        statusMsg.style.color = 'red';
+        statusMsg.textContent = 'Error sending application. Please check your internet and try again.';
+        console.error('Fetch error:', error);
+      }
+    });
+
+    // Disable right click
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, etc.
+    document.onkeydown = function(e) {
+      if (
+        e.keyCode === 123 || // F12
+        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) || // Ctrl+Shift+I/J/C
+        (e.ctrlKey && e.key.toLowerCase() === 'u') // Ctrl+U
+      ) {
+        return false;
+      }
+    };
+  </script>
+</body>
+</html>
